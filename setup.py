@@ -154,7 +154,7 @@ setup(
 
     entry_points = {
         'console_scripts': [
-            'rst2blog.py = rst2blog.main:main',
+            'rst2marsedit = rst2marsedit.main:main',
             ],
         },
 
