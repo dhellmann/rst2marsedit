@@ -139,7 +139,6 @@ setup(
               ],
     requires=['docutils (>=0.6)',
               'BeautifulSoup (==3.0.8)',
-              
               ],
 
     packages = find_packages(),

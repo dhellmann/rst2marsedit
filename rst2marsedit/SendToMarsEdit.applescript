@@ -11,11 +11,11 @@ on load_post(title_text, body_text)
 		set post_window to make new document
 		tell post_window
 			set the body to body_text
-			set category names to {"board"}
+			set category names to { ${categories} }
 		end tell
 		
 		(* Changing these values seems to modify the identity of the window, so change them and refer to the document by id. *)
-		set current weblog of document 1 to weblog "Python Software Foundation"
+        ${blog_instruction}
 		set the title of document 1 to title_text
 	end tell
 end load_post
