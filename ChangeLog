@@ -1,0 +1,4 @@
+2010-06-17  Doug Hellmann  <doug.hellmann@gmail.com>
+
+	* rst2marsedit/SendToMarsEdit.applescript: Read the file as UTF-8 encoded text.
+

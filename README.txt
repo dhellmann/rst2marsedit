@@ -32,6 +32,18 @@ Installation
     $ pip install rst2marsedit
 
 
+Release History
+===============
+
+1.1
+
+ - Fix Unicode handling in the AppleScript used to communicate with MarsEdit.
+
+1.0
+
+ - First public release.
+
+
 .. _reStructuredText: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 
 .. _MarsEdit: http://www.red-sweater.com/marsedit/

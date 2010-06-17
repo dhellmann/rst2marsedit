@@ -1,7 +1,7 @@
 
 on read_file(filename)
 	set filehandle to (open for access (POSIX file filename))
-	set post_body to (read filehandle for (get eof filehandle))
+	set post_body to (read filehandle for (get eof filehandle) as «class utf8»)
 	return post_body
 end read_file
 
