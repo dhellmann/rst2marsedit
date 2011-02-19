@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 PROJECT = 'rst2marsedit'
-VERSION = '1.1'
+VERSION = '1.2'
 
 # Bootstrap installation of Distribute
 import distribute_setup
@@ -133,7 +133,7 @@ setup(
                     'Topic :: Text Processing :: Markup :: HTML',
                     ],
 
-    platforms = ('Any',),
+    platforms = ['Any'],
 
     provides=['rst2marsedit',
               ],

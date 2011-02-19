@@ -35,6 +35,11 @@ Installation
 Release History
 ===============
 
+1.2
+
+ - Change implementation to make the script work with versions of
+   Python that don't support "with".
+
 1.1
 
  - Fix Unicode handling in the AppleScript used to communicate with MarsEdit.

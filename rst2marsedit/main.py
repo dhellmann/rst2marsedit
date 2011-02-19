@@ -61,13 +61,15 @@ def main():
     title = ''.join(unicode(c) for c in soup.find('title').contents)
 
     # Save the body to a file so the AppleScript can read it.
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.html') as f:
+    f = tempfile.NamedTemporaryFile(mode='w', suffix='.html')
+    try:
         out = codecs.getwriter('utf-8')(f)
         out.write(content)
         f.flush()
 
         # Build the AppleScript file from the template
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.applescript') as script_file:
+        script_file = tempfile.NamedTemporaryFile(mode='w', suffix='.applescript')
+        try:
             script_template = string.Template(
                 pkg_resources.resource_string(__name__, SCRIPT_TEMPLATE_NAME)
                 )
@@ -87,6 +89,10 @@ def main():
             # Open a new blog entry in MarsEdit
             mars = subprocess.Popen(['osascript', script_file.name, f.name, title])
             mars.communicate()
+        finally:
+            script_file.close()
+    finally:
+        f.close()
     return
 
 
