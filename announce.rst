@@ -2,7 +2,7 @@
  rst2marsedit 1.3
 ==================
 
-.. tags:: rst2marsedit release
+.. tags:: rst2marsedit release blogging
 
 rst2marsedit is a Python script for converting reStructuredText_ input
 to HTML that can be used with the MarsEdit_ blogging tool.
