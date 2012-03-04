@@ -40,7 +40,10 @@ def main():
     rst_file = args[0]
 
     # Convert RST to HTML
-    title, content = format_post(rst_file)
+    title, content, parsed_tags = format_post(rst_file)
+    tags = [t.encode('ascii')
+            for t in parsed_tags + options.tags
+            ]
 
     # Save the body to a file so the AppleScript can read it.
     f = tempfile.NamedTemporaryFile(mode='w', suffix='.html')
@@ -64,7 +67,7 @@ def main():
                 blog_instruction = ''
 
             script_body = script_template.safe_substitute(
-                categories=', '.join('"%s"' % t for t in options.tags),
+                categories=', '.join('"%s"' % t for t in tags),
                 blog_instruction=blog_instruction,
                 )
             script_file.write(script_body)

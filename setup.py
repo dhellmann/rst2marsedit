@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 PROJECT = 'rst2marsedit'
-VERSION = '1.2'
+VERSION = '1.3'
 
 # Bootstrap installation of Distribute
 import distribute_setup

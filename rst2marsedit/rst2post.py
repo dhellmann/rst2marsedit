@@ -10,6 +10,24 @@ If you're a Mac user, see also http://pypi.python.org/pypi/rst2marsedit
 from pyquery import PyQuery
 
 from docutils.core import publish_string
+from docutils.parsers import rst
+
+
+class TagsDirective(rst.Directive):
+    """Directive for specifying the tags or categories for a post.
+    """
+    name = 'tags'
+    has_content = True
+
+    def run(self):
+        # Save the tags back to the document settings so the code that
+        # calls the parser can use the values.
+        tags = self.state.document.settings.tags
+        tags.extend(' '.join(self.content).split())
+        return []
+
+
+rst.directives.register_directive('tags', TagsDirective)
 
 
 def format_post(rst_file, initial_header_level=4):
@@ -25,6 +43,7 @@ def format_post_from_string(body, initial_header_level=4):
     """Returns a tuple containing the title and an HTML string for the
     post body.
     """
+    tags = []
     try:
         html = publish_string(
             body,
@@ -32,6 +51,7 @@ def format_post_from_string(body, initial_header_level=4):
             settings_overrides={'initial_header_level': initial_header_level,
                                 'generator': False,
                                 'traceback': True,
+                                'tags': tags,
                                 },
             )
         if not html:
@@ -45,4 +65,4 @@ def format_post_from_string(body, initial_header_level=4):
     title = d('body').find('h1:first').html()
     d('body').find('h1:first').remove()
     content = d('body').html()
-    return title, content
+    return title, content, tags
