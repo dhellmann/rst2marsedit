@@ -19,7 +19,7 @@ try:
 except IOError:
     long_description = ''
 
-################################################################################
+###############################################################################
 # find_package_data is an Ian Bicking creation.
 
 # Provided as an attribute, so you can append to these instead
@@ -27,6 +27,7 @@ except IOError:
 standard_exclude = ('*.py', '*.pyc', '*~', '.*', '*.bak', '*.swp*')
 standard_exclude_directories = ('.*', 'CVS', '_darcs', './build',
                                 './dist', 'EGG-INFO', '*.egg-info')
+
 
 def find_package_data(
     where='.', package='',
@@ -59,7 +60,7 @@ def find_package_data(
 
     Note patterns use wildcards, or can be exact paths (including
     leading ``./``), and all searching is case-insensitive.
-    
+
     This function is by Ian Bicking.
     """
 
@@ -89,7 +90,10 @@ def find_package_data(
                         new_package = package + '.' + name
                     stack.append((fn, '', new_package, False))
                 else:
-                    stack.append((fn, prefix + name + '/', package, only_in_packages))
+                    stack.append((fn,
+                                  prefix + name + '/',
+                                  package,
+                                  only_in_packages))
             elif package or not only_in_packages:
                 # is a file
                 bad_name = False
@@ -104,36 +108,36 @@ def find_package_data(
                         break
                 if bad_name:
                     continue
-                out.setdefault(package, []).append(prefix+name)
+                out.setdefault(package, []).append(prefix + name)
     return out
-################################################################################
+###############################################################################
     
 
 setup(
-    name = PROJECT,
-    version = VERSION,
-    
-    description = 'Convert rst input to HTML suitable for use with MarsEdit',
-    long_description = long_description,
-    
-    author = 'Doug Hellmann',
-    author_email = 'doug.hellmann@gmail.com',
+    name=PROJECT,
+    version=VERSION,
 
-    url = 'http://www.doughellmann.com/projects/%s/' % PROJECT,
-    download_url = 'http://www.doughellmann.com/downloads/%s-%s.tar.gz' % \
-                    (PROJECT, VERSION),
+    description='Convert rst input to HTML suitable for use with MarsEdit',
+    long_description=long_description,
 
-    classifiers = [ 'Development Status :: 5 - Production/Stable',
-                    'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python',
-                    'Intended Audience :: Developers',
-                    'Intended Audience :: End Users/Desktop',
-                    'Environment :: Console',
-                    'Topic :: Documentation',
-                    'Topic :: Text Processing :: Markup :: HTML',
-                    ],
+    author='Doug Hellmann',
+    author_email='doug.hellmann@gmail.com',
 
-    platforms = ['Any'],
+    url='http://www.doughellmann.com/projects/%s/' % PROJECT,
+    download_url='http://www.doughellmann.com/downloads/%s-%s.tar.gz' % \
+        (PROJECT, VERSION),
+
+    classifiers=['Development Status :: 5 - Production/Stable',
+                 'License :: OSI Approved :: BSD License',
+                 'Programming Language :: Python',
+                 'Intended Audience :: Developers',
+                 'Intended Audience :: End Users/Desktop',
+                 'Environment :: Console',
+                 'Topic :: Documentation',
+                 'Topic :: Text Processing :: Markup :: HTML',
+                 ],
+
+    platforms=['Any'],
 
     provides=['rst2marsedit',
               ],
@@ -141,17 +145,17 @@ setup(
               'BeautifulSoup (==3.0.8)',
               ],
 
-    packages = find_packages(),
-    include_package_data = True,
+    packages=find_packages(),
+    include_package_data=True,
     # Scan the input for package information
-    # to grab any data files (text, images, etc.) 
+    # to grab any data files (text, images, etc.)
     # associated with sub-packages.
-    package_data = find_package_data(PROJECT, 
-                                     package=PROJECT,
-                                     only_in_packages=False,
-                                     ),
+    package_data=find_package_data(PROJECT,
+                                   package=PROJECT,
+                                   only_in_packages=False,
+                                   ),
 
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'rst2marsedit = rst2marsedit.main:main',
             ],

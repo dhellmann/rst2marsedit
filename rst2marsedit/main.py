@@ -8,7 +8,6 @@
 
 import codecs
 import optparse
-import os
 import string
 import subprocess
 import tempfile
@@ -17,6 +16,7 @@ from BeautifulSoup import BeautifulSoup
 import pkg_resources
 
 SCRIPT_TEMPLATE_NAME = 'SendToMarsEdit.applescript'
+
 
 def main():
     parser = optparse.OptionParser('%prog <infile>')
@@ -36,14 +36,16 @@ def main():
 
     if not args:
         parser.error('Please specify an input rst file')
-    
+
     rst_file = args[0]
 
     # Convert RST to HTML
     try:
-        rst2html = subprocess.Popen(['rst2html.py', '--no-generator', '--initial-header-level=4',
-                                     rst_file],
-                                    stdout=subprocess.PIPE)
+        rst2html = subprocess.Popen(
+            ['rst2html.py', '--no-generator', '--initial-header-level=4',
+             rst_file],
+            stdout=subprocess.PIPE,
+            )
         html = rst2html.communicate()[0]
         if not html:
             raise ValueError('No HTML produced by rst2html.py')
@@ -56,7 +58,7 @@ def main():
     body = soup.find('body')
     [h1.extract() for h1 in body.findAll('h1')]
     content = ''.join(unicode(c) for c in body.contents).strip()
-                    
+
     # Get the title of the article
     title = ''.join(unicode(c) for c in soup.find('title').contents)
 
@@ -68,7 +70,9 @@ def main():
         f.flush()
 
         # Build the AppleScript file from the template
-        script_file = tempfile.NamedTemporaryFile(mode='w', suffix='.applescript')
+        script_file = tempfile.NamedTemporaryFile(mode='w',
+                                                  suffix='.applescript',
+                                                  )
         try:
             script_template = string.Template(
                 pkg_resources.resource_string(__name__, SCRIPT_TEMPLATE_NAME)
@@ -80,14 +84,16 @@ def main():
                 blog_instruction = ''
 
             script_body = script_template.safe_substitute(
-                categories = ', '.join('"%s"' % t for t in options.tags),
-                blog_instruction = blog_instruction,
+                categories=', '.join('"%s"' % t for t in options.tags),
+                blog_instruction=blog_instruction,
                 )
             script_file.write(script_body)
             script_file.flush()
 
             # Open a new blog entry in MarsEdit
-            mars = subprocess.Popen(['osascript', script_file.name, f.name, title])
+            mars = subprocess.Popen(
+                ['osascript', script_file.name, f.name, title],
+                )
             mars.communicate()
         finally:
             script_file.close()
