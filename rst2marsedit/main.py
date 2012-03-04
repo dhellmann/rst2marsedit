@@ -12,7 +12,7 @@ import string
 import subprocess
 import tempfile
 
-from BeautifulSoup import BeautifulSoup
+from rst2marsedit.rst2post import format_post
 import pkg_resources
 
 SCRIPT_TEMPLATE_NAME = 'SendToMarsEdit.applescript'
@@ -40,27 +40,7 @@ def main():
     rst_file = args[0]
 
     # Convert RST to HTML
-    try:
-        rst2html = subprocess.Popen(
-            ['rst2html.py', '--no-generator', '--initial-header-level=4',
-             rst_file],
-            stdout=subprocess.PIPE,
-            )
-        html = rst2html.communicate()[0]
-        if not html:
-            raise ValueError('No HTML produced by rst2html.py')
-    except:
-        parser.error('Could not convert input file to HTML with rst2html.py')
-    soup = BeautifulSoup(html)
-
-    # Pull out the body of the HTML to make the blog post,
-    # removing the H1 element with the redundant title.
-    body = soup.find('body')
-    [h1.extract() for h1 in body.findAll('h1')]
-    content = ''.join(unicode(c) for c in body.contents).strip()
-
-    # Get the title of the article
-    title = ''.join(unicode(c) for c in soup.find('title').contents)
+    title, content = format_post(rst_file)
 
     # Save the body to a file so the AppleScript can read it.
     f = tempfile.NamedTemporaryFile(mode='w', suffix='.html')

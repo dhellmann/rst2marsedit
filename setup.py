@@ -111,7 +111,7 @@ def find_package_data(
                 out.setdefault(package, []).append(prefix + name)
     return out
 ###############################################################################
-    
+
 
 setup(
     name=PROJECT,
@@ -141,8 +141,9 @@ setup(
 
     provides=['rst2marsedit',
               ],
-    requires=['docutils (>=0.6)',
-              'BeautifulSoup (==3.0.8)',
+    requires=['distribute',
+              'pyquery (>=1.1.1)',
+              'docutils (>=0.6)',
               ],
 
     packages=find_packages(),
