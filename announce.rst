@@ -1,5 +1,5 @@
 ==================
- rst2marsedit 1.3
+ rst2marsedit 1.4
 ==================
 
 .. tags:: rst2marsedit release blogging
@@ -14,7 +14,4 @@ to HTML that can be used with the MarsEdit_ blogging tool.
 What's New?
 ===========
 
-- Use docutils as a library instead of shelling out.
-- Switch from BeautifulSoup to pyquery.
-- Add ``tags`` directive to specify the tags or categories for a new
-  post.
+- Fix installation dependencies.

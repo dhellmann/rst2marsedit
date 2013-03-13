@@ -141,10 +141,9 @@ setup(
 
     provides=['rst2marsedit',
               ],
-    requires=['distribute',
-              'pyquery (>=1.1.1)',
-              'docutils (>=0.6)',
-              ],
+    install_requires=['pyquery>=1.1.1',
+                      'docutils>=0.6',
+                      ],
 
     packages=find_packages(),
     include_package_data=True,
