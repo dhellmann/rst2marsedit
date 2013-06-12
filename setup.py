@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 PROJECT = 'rst2marsedit'
-VERSION = '1.4'
+VERSION = '1.4.1'
 
 from setuptools import setup, find_packages
 
