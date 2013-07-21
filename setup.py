@@ -137,7 +137,8 @@ setup(
 
     provides=['rst2marsedit',
               ],
-    install_requires=['pyquery>=1.1.1',
+    install_requires=['pyquery>=1.1.1,<1.3',
+                      'cssselect<=0.7.1',
                       'docutils>=0.6',
                       ],
 
