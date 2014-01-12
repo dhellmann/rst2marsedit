@@ -117,7 +117,7 @@ setup(
     long_description=long_description,
 
     author='Doug Hellmann',
-    author_email='doug.hellmann@gmail.com',
+    author_email='doug@doughellmann.com',
 
     url='http://www.doughellmann.com/projects/%s/' % PROJECT,
     download_url='http://www.doughellmann.com/downloads/%s-%s.tar.gz' % \
